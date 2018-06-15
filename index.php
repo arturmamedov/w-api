@@ -5,11 +5,13 @@ $endpoint = 'your/endpoint'; // relative to what setted in $host and $version in
 require_once 'api.php';
 $my_api = new MyApi('testuser', 'testpassword');
 
-$response = $my_api->http($endpoint, 'GET');
+$json_response = $my_api->http($endpoint, 'GET');
 
 if ($response === false) {
     $profile = [ 'status' => false, 'error' => 'CURL_ERR' ];
     exit(print_r($profile));
+}else {
+    $response = json_decode($json_response);
 }
 
 // Use $response ...

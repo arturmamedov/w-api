@@ -2,7 +2,7 @@
 /**
  * withPAPI Class
  *
- * @version 0.1.0
+ * @version 0.2.0
  *
  * @author  Artur Mamedov <arturmamedov1993@gmail.com>
  */
@@ -110,6 +110,10 @@ class MyApi
         $this->http_info = [];
         $ci = curl_init();
 
+        // we wont JSON
+        $headers[] = "Accept: application/json, text/javascript";
+        $headers[] = "X-Requested-With: XMLHttpRequest"; // if its a Ajax Request
+
         // Curl settings
         //curl_setopt($ci, CURLOPT_USERAGENT, $this->useragent);
         curl_setopt($ci, CURLOPT_USERPWD, $this->auth);
@@ -117,7 +121,7 @@ class MyApi
         curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
         curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ci, CURLOPT_HTTPHEADER, [ 'Expect:' ]);
+        curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
         //curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
         curl_setopt($ci, CURLOPT_HEADERFUNCTION, [ $this, 'getHeader' ]);
         curl_setopt($ci, CURLOPT_HEADER, false);
