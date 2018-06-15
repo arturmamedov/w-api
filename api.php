@@ -4,13 +4,15 @@
  *
  * @version 0.1.0
  *
- * @author Artur Mamedov <arturmamedov1993@gmail.com>
+ * @author  Artur Mamedov <arturmamedov1993@gmail.com>
  */
 
 /**
  * MyApi class
  */
-class MyApi {
+class MyApi
+{
+
     /**
      * Contains the last HTTP status code returned.
      */
@@ -49,7 +51,7 @@ class MyApi {
     /**
      *  Decode returned json data.
      */
-    public $decode_json = TRUE;
+    public $decode_json = true;
 
     /**
      *  Contains the last HTTP headers returned.
@@ -67,15 +69,9 @@ class MyApi {
 
 
     /**
-     * Debug helpers
-     */
-    function lastStatusCode() { return $this->http_status; }
-    function lastAPICall() { return $this->last_api_call; }
-
-    /**
      * Construct MyApi object
      *
-     * @param $consumer_name Name of API consumer
+     * @param $consumer_name     Name of API consumer
      * @param $consumer_password Password of API consumer
      *
      */
@@ -84,17 +80,34 @@ class MyApi {
         $this->auth = $consumer_name.':'.$consumer_password;
     }
 
+
+    /**
+     * Debug helpers
+     */
+    function lastStatusCode()
+    {
+        return $this->http_status;
+    }
+
+
+    function lastAPICall()
+    {
+        return $this->last_api_call;
+    }
+
+
     /**
      * Make an HTTP request
      *
      * @param string $endpoint
-     * @param string $method HTTP Method GET/POST
+     * @param string $method    HTTP Method GET/POST
      * @param array $postfields if Method POST
      *
      * @return API results
      */
-    function http($endpoint, $method, $postfields = NULL) {
-        $this->http_info = array();
+    function http($endpoint, $method, $postfields = null)
+    {
+        $this->http_info = [];
         $ci = curl_init();
 
         // Curl settings
@@ -103,22 +116,22 @@ class MyApi {
         curl_setopt($ci, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
         curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
-        curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ci, CURLOPT_HTTPHEADER, array('Expect:'));
+        curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ci, CURLOPT_HTTPHEADER, [ 'Expect:' ]);
         //curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
-        curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
-        curl_setopt($ci, CURLOPT_HEADER, FALSE);
+        curl_setopt($ci, CURLOPT_HEADERFUNCTION, [ $this, 'getHeader' ]);
+        curl_setopt($ci, CURLOPT_HEADER, false);
 
         switch ($method) {
             case 'POST':
-                curl_setopt($ci, CURLOPT_POST, TRUE);
-                if (!empty($postfields)) {
+                curl_setopt($ci, CURLOPT_POST, true);
+                if ( ! empty($postfields)) {
                     curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
                 }
                 break;
             case 'DELETE':
                 curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'DELETE');
-                if (!empty($postfields)) {
+                if ( ! empty($postfields)) {
                     $url = "{$url}?{$postfields}";
                 }
         }
@@ -132,7 +145,7 @@ class MyApi {
 
         $this->url = $url;
 
-        curl_close ($ci);
+        curl_close($ci);
 
         return $response;
     }
@@ -141,10 +154,11 @@ class MyApi {
     /**
      * Get the header info to store.
      */
-    function getHeader($ch, $header) {
+    function getHeader($ch, $header)
+    {
         $i = strpos($header, ':');
 
-        if (!empty($i)) {
+        if ( ! empty($i)) {
             $key = str_replace('-', '_', strtolower(substr($header, 0, $i)));
             $value = trim(substr($header, $i + 2));
             $this->http_header[$key] = $value;

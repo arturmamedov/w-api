@@ -7,8 +7,8 @@ $my_api = new MyApi('testuser', 'testpassword');
 
 $response = $my_api->http($endpoint, 'GET');
 
-if ($response === FALSE) {
-    $profile = array('status' => false, 'error' => 'CURL_ERR');
+if ($response === false) {
+    $profile = [ 'status' => false, 'error' => 'CURL_ERR' ];
     exit(print_r($profile));
 }
 
