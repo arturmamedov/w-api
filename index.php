@@ -1,5 +1,5 @@
 <?php
-
+$id = rawurlencode($_GET['id']); // the endpoint can have an id of resource (and it better to escape it)
 $endpoint = 'your/endpoint'; // relative to what setted in $host and $version in MyApi Class
 
 require_once 'api.php';
