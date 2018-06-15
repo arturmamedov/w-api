@@ -2,7 +2,7 @@
 /**
  * withPAPI Class
  *
- * @version 0.2.0
+ * @version 0.4.0
  *
  * @author  Artur Mamedov <arturmamedov1993@gmail.com>
  */
@@ -105,7 +105,7 @@ class MyApi
      *
      * @return API results
      */
-    function http($endpoint, $method, $postfields = null)
+    function http($endpoint, $method, $postfields = null, $options = [])
     {
         $this->http_info = [];
         $ci = curl_init();
@@ -130,7 +130,7 @@ class MyApi
             case 'POST':
                 curl_setopt($ci, CURLOPT_POST, true);
                 if ( ! empty($postfields)) {
-                    curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
+                    curl_setopt($ci, CURLOPT_POSTFIELDS, http_build_query($postfields));
                 }
                 break;
             //case 'DELETE':
@@ -140,7 +140,12 @@ class MyApi
             //    }
         }
 
-        $url = $this->host.$this->version.$endpoint;
+        // make a request without version if options no_version set to true
+        if (isset($options['no_version']) && $options['no_version']) {
+            $url = $this->host.$endpoint;
+        } else {
+            $url = $this->host.'/'.$this->version.$endpoint;
+        }
 
         curl_setopt($ci, CURLOPT_URL, $url);
         $response = curl_exec($ci);
