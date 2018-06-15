@@ -133,11 +133,11 @@ class MyApi
                     curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
                 }
                 break;
-            case 'DELETE':
-                curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'DELETE');
-                if ( ! empty($postfields)) {
-                    $url = "{$url}?{$postfields}";
-                }
+            //case 'DELETE':
+            //    curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'DELETE');
+            //    if ( ! empty($postfields)) {
+            //        $url = "{$url}?{$postfields}";
+            //    }
         }
 
         $url = $this->host.$this->version.$endpoint;
