@@ -125,6 +125,7 @@ class MyApi
         //curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
         curl_setopt($ci, CURLOPT_HEADERFUNCTION, [ $this, 'getHeader' ]);
         curl_setopt($ci, CURLOPT_HEADER, false);
+        curl_setopt($ci, CURLOPT_FOLLOWLOCATION, true);
 
         switch ($method) {
             case 'POST':
