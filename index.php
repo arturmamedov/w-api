@@ -8,10 +8,10 @@ $my_api = new MyApi('testuser', 'testpassword');
 $json_response = $my_api->http($endpoint, 'GET');
 
 if ($response === false) {
-    $profile = [ 'status' => false, 'error' => 'CURL_ERR' ];
+    $response = [ 'status' => false, 'error' => 'CURL_ERR' ];
     exit(print_r($profile));
 }else {
-    $response = json_decode($json_response);
+    $response = json_decode($json_response); // for debug reason, remove in production
 }
 
 // Use $response ...
