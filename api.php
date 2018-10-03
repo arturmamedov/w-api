@@ -2,7 +2,7 @@
 /**
  * withPAPI Class
  *
- * @version 0.5.0
+ * @version 0.5.1
  *
  * @author  Artur Mamedov <arturmamedov1993@gmail.com>
  */
@@ -26,7 +26,7 @@ class MyApi
     /**
      * Set up the API root URL.
      */
-    public $host = "http://api.test/api";
+    public $host = '';
 
     /**
      * Set up the API version
@@ -78,6 +78,11 @@ class MyApi
     function __construct($consumer_name, $consumer_password)
     {
         $this->auth = $consumer_name.':'.$consumer_password;
+
+        // if host not set, set it with the self http host
+        if (empty($this->host)) {
+            $this->host = $_SERVER['HTTP_HOST'].'/api';
+        }
     }
 
 
