@@ -2,10 +2,10 @@
 $id = rawurlencode($_GET['id']); // the endpoint can have an id of resource (and it better to escape it)
 $endpoint = 'your/endpoint'; // relative to what setted in $host and $version in MyApi Class
 
-require_once 'api.php';
-$my_api = new MyApi('testuser', 'testpassword');
+require_once 'src'.DIRECTORY_SEPARATOR.'api.php';
+$wapi = new wApi('testuser', 'testpassword');
 
-$json_response = $my_api->http($endpoint, 'GET');
+$json_response = $wapi->http($endpoint, 'GET');
 
 if ($response === false) {
     $response = [ 'status' => false, 'error' => 'CURL_ERR' ];

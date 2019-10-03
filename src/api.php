@@ -1,16 +1,16 @@
 <?php
 /**
- * withPAPI Class
+ * wApi Class
  *
- * @version 0.5.1
+ * @version 1.0.1
  *
  * @author  Artur Mamedov <arturmamedov1993@gmail.com>
  */
 
 /**
- * MyApi class
+ * wApi class
  */
-class MyApi
+class wApi
 {
 
     /**

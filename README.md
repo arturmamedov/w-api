@@ -1,4 +1,4 @@
-# withPAPI
+# wApi
 REST PHP API Consumer
 
 ###### Simple PHP Class for call an REST API endpoint and get JSON data with CURL
@@ -10,11 +10,14 @@ Example
 $endpoint = 'blog/posts'; // relative to what set in $host and $version in MyApi Class
 // so result: http://api.test/api/v1/blog/posts
 
-require_once 'api.php';
-$my_api = new MyApi('testuser', 'testpassword');
+# 1 - Include and init
+require_once 'src'.DIRECTORY_SEPARATOR.'api.php';
+$w_api = new wApi('testuser', 'testpassword');
 
-$json_response = $my_api->http($endpoint, 'GET');
+# 2 - Make call
+$json_response = $w_api->http($endpoint, 'GET');
 
+# 3 - Read Response
 if ($response === false) {
     $response = [ 'status' => false, 'error' => 'CURL_ERR' ];
     exit(print_r($response)); // for debug reason, to remove in production
