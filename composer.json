@@ -1,0 +1,13 @@
+{
+    "name": "arturmamedov/w-api",
+    "description": "Simple PHP Class for call an REST API endpoint and get JSON data with CURL",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Artur Mamedov",
+            "email": "arturmamedov1993@gmail.com"
+        }
+    ],
+    "require": {}
+}
