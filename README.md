@@ -7,7 +7,7 @@ REST PHP API Consumer
 Example
 ```php
 <?php
-$endpoint = 'blog/posts'; // relative to what setted in $host and $version in MyApi Class
+$endpoint = 'blog/posts'; // relative to what set in $host and $version in MyApi Class
 // so result: http://api.test/api/v1/blog/posts
 
 require_once 'api.php';
@@ -17,7 +17,7 @@ $json_response = $my_api->http($endpoint, 'GET');
 
 if ($response === false) {
     $response = [ 'status' => false, 'error' => 'CURL_ERR' ];
-    exit(print_r($response)); // for debug reason, remove in production
+    exit(print_r($response)); // for debug reason, to remove in production
 }else {
     $response = json_decode($json_response);
 }
