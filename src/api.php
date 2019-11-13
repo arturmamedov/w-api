@@ -2,13 +2,9 @@
 /**
  * wApi Class
  *
- * @version 1.0.1
+ * @version 1.0.2
  *
  * @author  Artur Mamedov <arturmamedov1993@gmail.com>
- */
-
-/**
- * wApi class
  */
 class wApi
 {
@@ -77,7 +73,7 @@ class wApi
      */
     function __construct($consumer_name, $consumer_password)
     {
-        $this->auth = $consumer_name.':'.$consumer_password;
+        $this->auth = 'Authorization: '.$consumer_name.' '.$consumer_password;
 
         // if host not set, set it with the self http host
         if (empty($this->host)) {
@@ -116,13 +112,14 @@ class wApi
         $ci = curl_init();
 
         // we wont JSON
+        $headers[] = $this->auth;
         $headers[] = "Accept: application/json, text/javascript";
         $headers[] = "X-Requested-With: XMLHttpRequest"; // if its a Ajax Request
 
         // Curl settings
         //curl_setopt($ci, CURLOPT_USERAGENT, $this->useragent);
-        curl_setopt($ci, CURLOPT_USERPWD, $this->auth);
-        curl_setopt($ci, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        //curl_setopt($ci, CURLOPT_USERPWD, $this->auth);
+        //curl_setopt($ci, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
         curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);

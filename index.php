@@ -3,7 +3,7 @@ $id = rawurlencode($_GET['id']); // the endpoint can have an id of resource (and
 $endpoint = 'your/endpoint'; // relative to what setted in $host and $version in MyApi Class
 
 require_once 'src'.DIRECTORY_SEPARATOR.'api.php';
-$wapi = new wApi('testuser', 'testpassword');
+$wapi = new wApi('Bearer', 'AccessToken');
 
 $json_response = $wapi->http($endpoint, 'GET');
 
