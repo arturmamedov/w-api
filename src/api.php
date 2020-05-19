@@ -25,11 +25,6 @@ class wApi
     public $host = '';
 
     /**
-     * Set up the API version
-     */
-    public $version = "/v1/";
-
-    /**
      *  Set timeout default.
      */
     public $timeout = 30;
@@ -40,7 +35,7 @@ class wApi
     public $connecttimeout = 30;
 
     /**
-     * Respons format.
+     * Response format.
      */
     public $format = 'json';
 
@@ -55,7 +50,7 @@ class wApi
     public $http_info;
 
     /**
-     * Contain user aithentication
+     * Contain user authentication
      * @var type
      */
     public $auth;
@@ -65,9 +60,9 @@ class wApi
 
 
     /**
-     * Construct MyApi object
+     * Construct wApi object
      *
-     * @param $consumer_name     Name of API consumer
+     * @param $consumer_name     Name of API consumer 'Bearer'
      * @param $consumer_password Password of API consumer
      *
      */
@@ -116,6 +111,10 @@ class wApi
         $headers[] = "Accept: application/json, text/javascript";
         $headers[] = "X-Requested-With: XMLHttpRequest"; // if its a Ajax Request
 
+        if (isset($options['locale'])) {
+            $headers[] = "X-Lang: {$options['locale']}";
+        }
+
         // Curl settings
         //curl_setopt($ci, CURLOPT_USERAGENT, $this->useragent);
         //curl_setopt($ci, CURLOPT_USERPWD, $this->auth);
@@ -143,12 +142,7 @@ class wApi
             //    }
         }
 
-        // make a request without version if options no_version set to true
-        if (isset($options['no_version']) && $options['no_version']) {
-            $url = $this->host.$endpoint;
-        } else {
-            $url = $this->host.'/'.$this->version.$endpoint;
-        }
+        $url = $this->host.$endpoint;
 
         curl_setopt($ci, CURLOPT_URL, $url);
         $response = curl_exec($ci);
